@@ -6,9 +6,18 @@
     <title>Main</title>
 </head>
 <body>
-    <h1 class = main_title>
-        Система бронювання
+    <h1 class="main_title">
+        Кімнати
     </h1>
-
+    <div>
+        {% for room in rooms %}
+            <p>Назва: {{ room.name }}</p>
+            <p>Тип: {{ room.room_type }}</p>
+            <p>Вмистімість: {{ room.capacity }}</p>
+            <p>Опис: {{ room.description }}</p>
+            <p>Ціна за годину: {{ room.price_per_hour }}</p>
+            <br>
+        {% endfor %}
+    </div>
 </body>
 </html>
