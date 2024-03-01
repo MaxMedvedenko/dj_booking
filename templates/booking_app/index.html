@@ -1,15 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/booking_app/style.css' %}">
 </head>
 <body>
     <h1 class="main_title">
         Кімнати
     </h1>
-    <div>
+    <div class="room_list">
         {% for room in rooms %}
             <p>Назва: {{ room.name }}</p>
             <p>Тип: {{ room.room_type }}</p>
