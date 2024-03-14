@@ -1,0 +1,26 @@
+{% extends 'booking_app/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/booking_app/room_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 class="main_title">
+    Кімнати
+</h1>
+<div class="room_list">
+    {% for room in rooms %}
+        <div class="room">
+            <p>Назва: {{ room.name }}</p>
+            <p>Тип: {{ room.room_type }}</p>
+            <p>Вмистімість: {{ room.capacity }}</p>
+            <p>Опис: {{ room.description }}</p>
+            <p>Ціна за годину: {{ room.price_per_hour }}</p>
+            <br>
+            <!-- Кнопка "Забронювати" -->
+            <a href="{% url 'booking_form' %}" class="btn-book">Забронювати</a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

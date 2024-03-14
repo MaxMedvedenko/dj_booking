@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/booking_app/base.css' %}">
+    <title>{% block title %}Website{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="{% url 'index' %}">Home</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'room_list' %}">Room List</a></li>
+                <li><a href="{% url 'booking_form' %}">Booking form</a></li>
+                <li><a href="/">Page 3</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+        {% block content %}
+        <!-- Content goes here -->
+        {% endblock %}
+    </div>
+</body>
+</html>

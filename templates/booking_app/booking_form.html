@@ -1,0 +1,30 @@
+{% extends 'booking_app/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/booking_app/booking_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<form method = 'POST'>
+    {%csrf_token%}
+    <label for = "name">Name</label>
+    <input type = "text" id = "name" name = "name" required><br>
+
+    <label for="surname">Surname</label>
+    <input type="text" id="surname" name="surname" required><br>
+
+    <label for = "name">Email</label>
+    <input type = "email" id = "email" name = "email" required><br>
+
+    <label for = "name">Telefon</label>
+    <input type = "text" id = "telefon" name = "telefon" required><br>
+
+    <label for = "check_in_date">Check-in date</label>
+    <input type = "date" id = "check-in_date" name = "check_in_date" required><br>
+    <label for = "check_out_date">Check-out date</label>
+    <input type = "date" id = "check_out_date" name = "check_out_date" required><br>
+    
+    <input type="submit" value ="Забронювати">
+</form>
+{% endblock %}

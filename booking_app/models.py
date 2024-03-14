@@ -30,9 +30,12 @@ class Room(models.Model):
     price_per_hour = models.DecimalField(max_digits=10, decimal_places=2)
 
 class Reservation(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    surname = models.CharField(max_length=100)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, null=True, blank=True)
+    
+    user_email = models.EmailField()
+    telefon = models.CharField(max_length=15, null=True, blank=True)
+    
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
-    confirmed = models.BooleanField(default=False)
-    user_email = models.EmailField()
