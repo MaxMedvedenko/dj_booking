@@ -34,6 +34,11 @@
       display: inline-block;
       margin: 0 auto;
     }
+    #timer {
+      color: #9ABC66;
+      font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+      font-size: 24px;
+    }
   </style>
 </head>
 <body>
@@ -42,15 +47,21 @@
       <i class="checkmark">✓</i>
     </div>
     <h1>Success</h1> 
-    <p> <br/> </p>
+    <p id="timer">Redirecting in 10 seconds...</p>
     <a href="{% url 'index' %}">Back to Home</a>
   </div>
 
   <!-- JavaScript для автоматичного перенаправлення через 10 секунд -->
   <script>
-    setTimeout(function() {
-      window.location.href = "{% url 'index' %}";
-    }, 10000); // 10000 мілісекунд = 10 секунд
+    var count = 10;
+    var timer = setInterval(function() {
+      count--;
+      document.getElementById("timer").innerHTML = "Redirecting in " + count + " seconds...";
+      if (count == 0) {
+        clearInterval(timer);
+        window.location.href = "{% url 'index' %}";
+      }
+    }, 1000); // оновлення кожну секунду
   </script>
 </body>
 </html>

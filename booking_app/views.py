@@ -15,6 +15,8 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
 
 from django.contrib.auth import logout
+
+from django.contrib.auth.backends import ModelBackend
 # Create your views here.
 
 def get_room_by_id(request, room_id):
@@ -79,18 +81,28 @@ def register_form(request):
         form = CustomUserCreationForm()
     return render(request, 'booking_app/register_form.html', {'form': form})
 
+
+
+
+class CustomAuthenticationBackend(ModelBackend):
+    def authenticate(self, request, username=None, email=None, password=None, **kwargs):
+        # Отримати користувача за email
+        user = CustomUser.objects.filter(email=email).first()
+        # Перевірити, чи користувач існує та введений пароль вірний
+        if user and user.check_password(password):
+            return user
+        return None
+
 def login_form(request):
     form = AuthenticationForm()  # Ініціалізуємо форму за замовчуванням
     
     if request.method == 'POST':
-        nickname = request.POST.get('nickname')
         email = request.POST.get('email')
         password = request.POST.get('password')
-        user = authenticate(request, nickname=nickname, email=email, password=password)
+        user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
             # Перенаправлення на сторінку успіху після успішного входу
             return redirect('success')
     # Якщо метод запиту GET або не було успішного входу, повертаємо форму для входу
     return render(request, 'booking_app/login_form.html', {'form': form})
-
