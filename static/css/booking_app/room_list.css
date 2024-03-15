@@ -30,3 +30,7 @@ h1.main_title {
     border-radius: 5px;
     text-decoration: none;
 }
+
+a {
+    color: #333;
+}

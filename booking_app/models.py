@@ -1,27 +1,62 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin, AbstractBaseUser
 from django.db import models
 
-class CustomUser(AbstractUser):
+from django.db import models
+from django.contrib.auth.hashers import make_password, check_password
+
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('The Email field must be set')
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+
+        return self.create_user(email, password, **extra_fields)
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
         ('O', 'Other'),
     )
-    
-    patronymic = models.CharField(max_length=50)
+
+    nickname = models.CharField(max_length=50, default='')
+    name = models.CharField(max_length=50, default='')
+    surname = models.CharField(max_length=50, default='')
+
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    phone_number = models.CharField(max_length=15)
     age = models.PositiveIntegerField()
 
-    # Додавання аргументів related_name для уникнення конфлікту імен
+    phone_number = models.CharField(max_length=15)
+    email = models.EmailField(unique=True)
+
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    # Додаємо related_name для зворотних зв'язків groups та user_permissions
     groups = models.ManyToManyField('auth.Group', related_name='custom_user_groups')
     user_permissions = models.ManyToManyField('auth.Permission', related_name='custom_user_permissions')
 
-    # Встановлення значення за замовчуванням для поля password
-    password = models.CharField(max_length=128, default='HHHp2TF2pHHH')
-
     def __str__(self):
-        return self.username
+        return f"{self.name} {self.surname}"
+
 
 class Room(models.Model):
     name = models.CharField(max_length=100)

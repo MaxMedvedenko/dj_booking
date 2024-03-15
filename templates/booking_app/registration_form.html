@@ -1,0 +1,42 @@
+{% extends 'booking_app/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/booking_app/registration_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2>User Registration</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="nickname">Nickname:</label><br>
+    <input type="text" id="nickname" name="nickname"><br>
+    
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+    
+    <label for="surname">Surname:</label><br>
+    <input type="text" id="surname" name="surname"><br>
+    
+    <label for="gender">Gender:</label><br>
+    <select id="gender" name="gender">
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+        <option value="O">Other</option>
+    </select><br>
+    
+    <label for="age">Age:</label><br>
+    <input type="number" id="age" name="age"><br>
+    
+    <label for="phone_number">Phone Number:</label><br>
+    <input type="text" id="phone_number" name="phone_number"><br>
+    
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br>
+    
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br>
+    
+    <input type="submit" value="Register">
+</form>
+{% endblock %}

@@ -1,7 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from booking_app.models import *
 
+from django.contrib.auth import authenticate, login
+
 from django import forms
+from .models import CustomUser
+from django.contrib.auth.forms import UserCreationForm
 
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
@@ -32,6 +36,8 @@ def room_list(request):
     print(rooms)
     return render(request, 'booking_app/room_list.html', content)
 
+
+
 class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
@@ -49,3 +55,21 @@ def booking_form(request):
     else:
         form = BookingForm()
         return render(request, 'booking_app/booking_form.html', {'form': form})
+    
+
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = CustomUser
+        fields = ('nickname', 'name', 'surname', 'gender', 'age', 'phone_number', 'email', 'password')
+
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  # Перенаправити користувача на сторінку входу після реєстрації
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'registration_form.html', {'form': form})
