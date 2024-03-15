@@ -1,6 +1,9 @@
+/* room_list.css */
+
 .main_title {
+    color: #336699;
+    font-size: 36px;
     text-align: center;
-    font-size: 24px;
     margin-bottom: 20px;
 }
 
@@ -11,32 +14,31 @@
 }
 
 .room {
-    max-width: 300px;
-    margin: 20px;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
     background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    width: 300px;
 }
 
 .room p {
-    margin: 0;
-    padding: 5px 0;
+    margin: 5px 0;
 }
 
 .btn-book {
     display: block;
-    width: 100%;
-    text-align: center;
+    width: 150px;
+    margin: 10px auto;
     padding: 10px;
-    margin-top: 10px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
+    text-align: center;
+    background-color: #336699;
+    color: #fff;
+    border: none;
     border-radius: 5px;
-    transition: background-color 0.3s;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
 }
 
 .btn-book:hover {
-    background-color: #45a049;
+    background-color: #255580;
 }
