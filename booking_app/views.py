@@ -77,9 +77,11 @@ def register_form(request):
             return redirect('success')  # Перенаправлення на сторінку успіху після успішної реєстрації
     else:
         form = CustomUserCreationForm()
-    return render(request, 'register_form.html', {'form': form})
+    return render(request, 'booking_app/register_form.html', {'form': form})
 
 def login_form(request):
+    form = AuthenticationForm()  # Ініціалізуємо форму за замовчуванням
+    
     if request.method == 'POST':
         nickname = request.POST.get('nickname')
         email = request.POST.get('email')
@@ -89,7 +91,6 @@ def login_form(request):
             login(request, user)
             # Перенаправлення на сторінку успіху після успішного входу
             return redirect('success')
-    else:
-        form = AuthenticationForm()
-    return render(request, 'login_form.html', {'form': form})
+    # Якщо метод запиту GET або не було успішного входу, повертаємо форму для входу
+    return render(request, 'booking_app/login_form.html', {'form': form})
 
