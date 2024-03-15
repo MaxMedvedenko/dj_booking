@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from booking_app.models import *
 
+from django import forms
+
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 # Create your views here.
@@ -30,31 +32,20 @@ def room_list(request):
     print(rooms)
     return render(request, 'booking_app/room_list.html', content)
 
+class BookingForm(forms.ModelForm):
+    class Meta:
+        model = Booking
+        fields = ['name', 'surname', 'email', 'telefon', 'check_in_date', 'check_out_date']
+
 def booking_form(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
-        surname = request.POST.get('surname')
-        email = request.POST.get('email')
-        telefon = request.POST.get('telefon')
-        check_in_date = request.POST.get('check_in_date')
-        check_out_date = request.POST.get('check_out_date')
-        
-        # Отримання кімнати, яку бронює користувач (припустимо, що ви знаєте room_id)
-        room_id = request.POST.get('room_id')
-        room = Room.objects.get(pk=room_id)
-        
-        # Створення об'єкта Reservation з отриманими даними
-        reservation = Reservation.objects.create(
-            user=request.user if request.user.is_authenticated else None,
-            room=room,
-            start_datetime=check_in_date,
-            end_datetime=check_out_date,
-            user_email=email,
-            telefon=telefon,
-            name=name,
-            surname=surname,
-        ) 
-        # Повернення підтвердження бронювання або перенаправлення на іншу сторінку
-        return HttpResponse("Бронювання успішно здійснено!")
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Бронювання успішно здійснено!")
+        else:
+            # Якщо форма недійсна, відображаємо її знову з повідомленням про помилку
+            return render(request, 'booking_app/booking_form.html', {'form': form})
     else:
-        return render(request, 'booking_app/booking_form.html')
+        form = BookingForm()
+        return render(request, 'booking_app/booking_form.html', {'form': form})

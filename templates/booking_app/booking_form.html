@@ -6,25 +6,25 @@
 {% endblock %}
 
 {% block content %}
-<form method = 'POST'>
-    {%csrf_token%}
-    <label for = "name">Name</label>
-    <input type = "text" id = "name" name = "name" required><br>
+<form method="POST">
+    {% csrf_token %}
+    <label for="id_name">Name</label>
+    <input type="text" id="id_name" name="name" required><br>
 
-    <label for="surname">Surname</label>
-    <input type="text" id="surname" name="surname" required><br>
+    <label for="id_surname">Surname</label>
+    <input type="text" id="id_surname" name="surname" required><br>
 
-    <label for = "name">Email</label>
-    <input type = "email" id = "email" name = "email" required><br>
+    <label for="id_email">Email</label>
+    <input type="email" id="id_email" name="email" required><br>
 
-    <label for = "name">Telefon</label>
-    <input type = "text" id = "telefon" name = "telefon" required><br>
+    <label for="id_telefon">Telefon</label>
+    <input type="text" id="id_telefon" name="telefon" required><br>
 
-    <label for = "check_in_date">Check-in date</label>
-    <input type = "date" id = "check-in_date" name = "check_in_date" required><br>
-    <label for = "check_out_date">Check-out date</label>
-    <input type = "date" id = "check_out_date" name = "check_out_date" required><br>
+    <label for="id_check_in_date">Check-in date</label>
+    <input type="date" id="id_check_in_date" name="check_in_date" required><br>
+    <label for="id_check_out_date">Check-out date</label>
+    <input type="date" id="id_check_out_date" name="check_out_date" required><br>
     
-    <input type="submit" value ="Забронювати">
+    <input type="submit" value="Забронювати">
 </form>
 {% endblock %}
