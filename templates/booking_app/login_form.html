@@ -1,7 +1,9 @@
 {% extends 'booking_app/base.html' %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/booking_app/booking_form.css' %}">
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/booking_app/login_form.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="form-container">

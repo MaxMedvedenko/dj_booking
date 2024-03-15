@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/booking_app/base.css' %}">
     <title>{% block title %}Booking.com{% endblock %}</title>
+    <!-- Включення стилів базового шаблону -->
+    {% block styles %}{% endblock %}
 </head>
 <body>
     <header>
@@ -19,6 +21,12 @@
                 <li><a href="{% url 'register_form' %}">Registration</a></li>
                 <li><a href="{% url 'login_form' %}">Login</a></li>
                 <li><a href="{% url 'logout' %}">Log out</a></li>
+                <!-- Додано умовний оператор для визначення статусу користувача -->
+                {% if user.is_authenticated %}
+                    <li style="color: green;">Logged in</li>
+                {% else %}
+                    <li style="color: red;">Logged out</li>
+                {% endif %}
             </ul>
         </nav>
     </header>
@@ -30,3 +38,5 @@
     </div>
 </body>
 </html>
+
+

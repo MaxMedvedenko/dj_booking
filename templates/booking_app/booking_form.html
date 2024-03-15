@@ -1,30 +1,52 @@
 {% extends 'booking_app/base.html' %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/booking_app/booking_form.css' %}">
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/booking_app/booking_form.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{% endblock %}
 
 {% block content %}
-<div class="form-container">
-    <form method="POST">
-        {% csrf_token %}
-        <label for="id_name">Name</label>
-        <input type="text" id="id_name" name="name" required><br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="form-container">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_name">Name</label>
+                        <input type="text" class="form-control" id="id_name" name="name" required>
+                    </div>
 
-        <label for="id_surname">Surname</label>
-        <input type="text" id="id_surname" name="surname" required><br>
+                    <div class="form-group">
+                        <label for="id_surname">Surname</label>
+                        <input type="text" class="form-control" id="id_surname" name="surname" required>
+                    </div>
 
-        <label for="id_email">Email</label>
-        <input type="email" id="id_email" name="email" required><br>
+                    <div class="form-group">
+                        <label for="id_email">Email</label>
+                        <input type="email" class="form-control" id="id_email" name="email" required>
+                    </div>
 
-        <label for="id_telefon">Telefon</label>
-        <input type="text" id="id_telefon" name="telefon" required><br>
+                    <div class="form-group">
+                        <label for="id_telefon">Telefon</label>
+                        <input type="text" class="form-control" id="id_telefon" name="telefon" required>
+                    </div>
 
-        <label for="id_check_in_date">Check-in date</label>
-        <input type="date" id="id_check_in_date" name="check_in_date" required><br>
-        <label for="id_check_out_date">Check-out date</label>
-        <input type="date" id="id_check_out_date" name="check_out_date" required><br>
-        
-        <input type="submit" value="Забронювати">
-    </form>
+                    <div class="form-group">
+                        <label for="id_check_in_date">Check-in date</label>
+                        <input type="date" class="form-control" id="id_check_in_date" name="check_in_date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_check_out_date">Check-out date</label>
+                        <input type="date" class="form-control" id="id_check_out_date" name="check_out_date" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Забронювати</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
