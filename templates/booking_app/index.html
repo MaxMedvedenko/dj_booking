@@ -2,9 +2,14 @@
 {% load static %}
 
 {% block styles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/booking_app/.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/booking_app/index.css' %}">
 {% endblock %}
 
 {% block content %}
+<div class="main-content">
+    <div class="hotel-photo">
+        <img src="{% static 'images/hotel_photo.jpg' %}" alt="Hotel Photo">
+    </div>
+</div>
 
 {% endblock %}

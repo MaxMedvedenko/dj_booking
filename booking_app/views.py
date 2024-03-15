@@ -7,8 +7,13 @@ from django import forms
 from .models import CustomUser
 from django.contrib.auth.forms import UserCreationForm
 
+from .forms import CustomUserCreationForm
+
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+
+from django.contrib.auth.forms import AuthenticationForm
+
 # Create your views here.
 
 def get_room_by_id(request, room_id):
@@ -36,7 +41,8 @@ def room_list(request):
     print(rooms)
     return render(request, 'booking_app/room_list.html', content)
 
-
+def success(request):
+    return render(request, 'booking_app/success.html')
 
 class BookingForm(forms.ModelForm):
     class Meta:
@@ -48,7 +54,7 @@ def booking_form(request):
         form = BookingForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse("Бронювання успішно здійснено!")
+            return redirect('success')
         else:
             # Якщо форма недійсна, відображаємо її знову з повідомленням про помилку
             return render(request, 'booking_app/booking_form.html', {'form': form})
@@ -56,20 +62,31 @@ def booking_form(request):
         form = BookingForm()
         return render(request, 'booking_app/booking_form.html', {'form': form})
     
+    
 
-
-class CustomUserCreationForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        model = CustomUser
-        fields = ('nickname', 'name', 'surname', 'gender', 'age', 'phone_number', 'email', 'password')
-
-
-def register(request):
+def register_form(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')  # Перенаправити користувача на сторінку входу після реєстрації
+            return redirect('login')  # Перенаправлення на сторінку входу після успішної реєстрації
     else:
         form = CustomUserCreationForm()
-    return render(request, 'registration_form.html', {'form': form})
+    return render(request, 'register_form.html', {'form': form})
+
+def login_form(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            # Отримати дані з форми
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                # Перенаправлення на головну сторінку після входу
+                return redirect('index')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login_form.html', {'form': form})
+

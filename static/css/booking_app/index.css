@@ -1,0 +1,43 @@
+/* Reset some default styles */
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+/* Half-page layout */
+.half-page {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+/* Styling for hotel photo and rental document photo */
+.hotel-photo, .rental-document-photo {
+    width: 45%;
+}
+
+/* Styling for left navigation and right navigation */
+.left-nav, .right-nav {
+    width: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left-nav ul, .right-nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.left-nav ul li, .right-nav ul li {
+    margin-bottom: 10px;
+}
+
+.left-nav ul li a, .right-nav ul li a {
+    color: #333;
+    text-decoration: none;
+}
+
+.left-nav ul li a:hover, .right-nav ul li a:hover {
+    text-decoration: underline;
+}
