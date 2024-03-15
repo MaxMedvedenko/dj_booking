@@ -14,6 +14,7 @@ from django.http import HttpResponse
 
 from django.contrib.auth.forms import AuthenticationForm
 
+from django.contrib.auth import logout
 # Create your views here.
 
 def get_room_by_id(request, room_id):
@@ -43,6 +44,10 @@ def room_list(request):
 
 def success(request):
     return render(request, 'booking_app/success.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('success')
 
 class BookingForm(forms.ModelForm):
     class Meta:
