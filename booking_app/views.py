@@ -69,23 +69,21 @@ def register_form(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')  # Перенаправлення на сторінку входу після успішної реєстрації
+            return redirect('success')  # Перенаправлення на сторінку успіху після успішної реєстрації
     else:
         form = CustomUserCreationForm()
     return render(request, 'register_form.html', {'form': form})
 
 def login_form(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, request.POST)
-        if form.is_valid():
-            # Отримати дані з форми
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                # Перенаправлення на головну сторінку після входу
-                return redirect('index')
+        nickname = request.POST.get('nickname')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = authenticate(request, nickname=nickname, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            # Перенаправлення на сторінку успіху після успішного входу
+            return redirect('success')
     else:
         form = AuthenticationForm()
     return render(request, 'login_form.html', {'form': form})
